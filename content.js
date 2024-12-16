@@ -7,6 +7,9 @@ const keyMap = {
     "ArrowUp": 38,
     "ArrowRight": 39,
     "Delete": 46,
+    "Home": 36,
+    "End": 35,
+
 }
 
 let iframeDocument = null;  // To store iframe document
@@ -99,6 +102,18 @@ function handleNormalMode(e) {
             e.preventDefault();
             enterVisualMode();
             break;
+        case "/":
+            e.preventDefault();
+            simulateKey('f', true);
+            break;
+        case "0":
+            e.preventDefault();
+            simulateKey('Home');
+            break;
+        case "$":
+            e.preventDefault();
+            simulateKey('End');
+            break;
         default:
             e.preventDefault();
             break;
@@ -135,6 +150,14 @@ function handleVisualMode(e) {
         case "x":
             e.preventDefault();
             simulateKey('Delete');
+            break;
+        case "0":
+            e.preventDefault();
+            simulateKey('Home', false, true);
+            break;
+        case "$":
+            e.preventDefault();
+            simulateKey('End', false, true);
             break;
         case "Escape":
             e.preventDefault();
