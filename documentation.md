@@ -36,7 +36,7 @@ git clone https://github.com/BCCheungGit/Google-Docs-Vim.git
 
 ## Implementation
 The extension is implemented in pure JavaScript that works to manipulate the DOM, specifically the iframe in which the Google Docs editor is located. The extension listens for key presses and manipulates the cursor position and text content accordingly.
----
+
 ### Potentially Confusing Code Snippets
 1. Why do we need to add the keybinding to the iframe?
 ```javascript
@@ -135,5 +135,3 @@ function simulatePaste() {
 ```
 This is where things get weird, and the implementation will be improved in the future (I hope). I first tried to simulate copy and paste by simply calling the aforementioned `simulateKey()` function with the appropriate key codes and ctrl parameter set to true. However, this did not work as expected because Google Docs protects against synthetic key presses modifying the clipboard. Next, I tried using the `execCommand("copy")` and `navigator.clipboard.readText()` functions to copy and paste text, respectively. This did not work at first either because the function is deprecated or for some other reason. The current implementation is a workaround that reads the text from the clipboard and simulates key presses for each character in the text. This is not ideal and will be improved in the future, but hey it works, which is good enough for now. 
 
-
-[]: # (END)
