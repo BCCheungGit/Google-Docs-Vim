@@ -6,4 +6,6 @@ features:
 - [x] Normal mode
     - [x] hjkl movement
     - [x] w, b
-- [ ] Insert mode 
+    - [x] x, u 
+- [x] Insert mode 
+- [x] Swapping between normal and insert mode with `i`, `a` and `esc` keys
