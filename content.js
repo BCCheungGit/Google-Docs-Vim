@@ -1,6 +1,6 @@
 let listenerAdded = false;
 let mode = "normal"; // Mode variable to track current mode
-
+let keySequence = []; // key sequence for dd, yy, etc.
 
 // Keymap for direction keys and other keys
 const keyMap = {
@@ -11,7 +11,6 @@ const keyMap = {
     "Delete": 46,
     "Home": 36,
     "End": 35,
-
 }
 
 let iframeDocument = null;  // To store iframe document
@@ -66,6 +65,18 @@ function addKeyBindingToIframe() {
 
 // Normal mode keybindings
 function handleNormalMode(e) {
+    keySequence.push(e.key);
+
+    if (keySequence.length > 2) {
+        keySequence.shift();
+    }
+
+    if (keySequence.join('') === 'dd') {
+        e.preventDefault();
+        simulateKey('')
+        return;
+    }
+
     switch (e.key) {
         case "h":
             e.preventDefault();
@@ -128,6 +139,10 @@ function handleNormalMode(e) {
             e.preventDefault();
             simulateKey('End');
             break;
+        case "P":
+            e.preventDefault();
+            simulatePaste();
+            break;
         default:
             e.preventDefault();
             break;
@@ -173,6 +188,15 @@ function handleVisualMode(e) {
             e.preventDefault();
             simulateKey('End', false, true);
             break;
+        case "i":
+            e.preventDefault();
+            enterInsertMode();
+            break;
+        case "y":
+            e.preventDefault();
+            simulateCopy();
+            enterNormalMode();
+            break;
         case "Escape":
             e.preventDefault();
             enterNormalMode();
@@ -209,13 +233,51 @@ function enterNormalMode() {
     updateStatusIndicator();
 }
 
+function simulateCopy() {
+    document.querySelector(".docs-texteventtarget-iframe").contentDocument.execCommand("copy");
+    const selectedText = document.querySelector(".docs-texteventtarget-iframe").contentDocument.body.innerText
+}
+
+function simulatePaste() {
+    console.log("Pasting...");
+    const iframe = document.querySelector('iframe.docs-texteventtarget-iframe');
+    if (!iframe) {
+        console.warn('Google Docs editor iframe not found!');
+        return;
+    }
+
+    const activeElement = iframe.contentDocument.activeElement;
+
+    if (!activeElement) {
+        console.warn('No active element in Google Docs iframe!');
+        return;
+    }
+    navigator.clipboard.readText().then(text => {
+        for (let i = 0; i < text.length; i++) {
+
+            const pasteEvent = {
+                bubbles: true,
+                cancelable: true,
+                key: text[i],
+                keyCode: text[i].charCodeAt(0),
+                ctrlKey: false,
+                shiftKey: false,
+            }
+            activeElement.dispatchEvent(new KeyboardEvent('keypress', pasteEvent));
+        }
+        return;
+
+    }
+    )
+}
+
 
 // Simulate key events for direction keys
 /*
 
 ? simulateKey() function takes the key to simulate as an argument, along with optional ctrl and shift modifiers.
 
-*/ 
+*/
 function simulateKey(key, ctrl = false, shift = false) {
     const iframe = document.querySelector('iframe.docs-texteventtarget-iframe');
     if (!iframe) {
@@ -239,6 +301,7 @@ function simulateKey(key, ctrl = false, shift = false) {
         ctrlKey: ctrl,
         shiftKey: shift,
     });
+
     activeElement.dispatchEvent(event);
 }
 

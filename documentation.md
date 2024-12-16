@@ -31,5 +31,5 @@ git clone https://github.com/BCCheungGit/Google-Docs-Vim.git
 - `u` to undo the last action
 - `/` to enter search mode
 - `v` to enter visual mode
-- $ to move the cursor to the end of the line
-- 0 to move the cursor to the beginning of the line
+- `$` to move the cursor to the end of the line
+- `0` to move the cursor to the beginning of the line

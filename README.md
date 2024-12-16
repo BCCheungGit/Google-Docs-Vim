@@ -22,3 +22,5 @@ features:
 
 - [ ] allow for ctrl + r and other ctrl normal commands
 - [ ] yank, paste (not sure if this will work in google docs)
+- [ ] repeated commands with numbers
+- [ ] dd, yy, other multi-character commands

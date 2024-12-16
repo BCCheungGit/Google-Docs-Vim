@@ -1,12 +1,14 @@
 {
     "manifest_version": 3,
-    "name": "Vim for Google Docs",
+    "name": "Google Docs Vim-like",
     "version": "1.0",
     "description": "Vim keybindings for Google Docs",
     "permissions": [
         "storage",
         "activeTab",
-        "scripting"
+        "scripting",
+        "clipboardWrite",
+        "clipboardRead"
     ],
     "background": {
         "service_worker": "background.js"
