@@ -13,7 +13,9 @@ features:
 - [x] Swapping between normal and insert mode with `i`, `a` and `esc` keys
 - [x] Visual mode
 - [x] search with `/`
+- [x] move to end of line with $ and beginning with 0
+
+
 
 - [ ] allow for ctrl + r and other ctrl normal commands
 - [ ] yank, paste (not sure if this will work in google docs)
-- [ ] move to end of line with $ and beginning with 0
