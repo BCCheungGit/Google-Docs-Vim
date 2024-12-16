@@ -17,10 +17,8 @@ features:
 - [x] Visual mode
 - [x] search with `/`
 - [x] move to end of line with $ and beginning with 0
+- [x] yank, paste (not sure if this will work in google docs) (improve in the future)
 
 
-
-- [ ] allow for ctrl + r and other ctrl normal commands
-- [ ] yank, paste (not sure if this will work in google docs)
 - [ ] repeated commands with numbers
 - [ ] dd, yy, other multi-character commands
