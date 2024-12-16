@@ -33,6 +33,8 @@ git clone https://github.com/BCCheungGit/Google-Docs-Vim.git
 - `v` to enter visual mode
 - `$` to move the cursor to the end of the line
 - `0` to move the cursor to the beginning of the line
+- `y` to yank the selected text (visual mode only)
+- `p` to paste the yanked text (normal mode only)
 
 ## Implementation
 The extension is implemented in pure JavaScript that works to manipulate the DOM, specifically the iframe in which the Google Docs editor is located. The extension listens for key presses and manipulates the cursor position and text content accordingly.
