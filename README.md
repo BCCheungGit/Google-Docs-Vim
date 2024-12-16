@@ -2,7 +2,7 @@
 A simple script/chrome extension to simulate vim-like keybindings in Google Docs
 
 
-Docs [here](https://github.com/BCCheungGit/Google-Docs-Vim.git/documentation.md)
+Docs [here](https://github.com/BCCheungGit/Google-Docs-Vim/blob/main/documentation.mdd)
 
 features:
 - [x] Normal mode
