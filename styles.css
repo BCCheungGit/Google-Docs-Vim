@@ -1,0 +1,6 @@
+#vim-mode-indicator {
+  font-family: monospace;
+  font-size: 12px;
+  border-radius: 3px;
+  opacity: 0.8;
+}
