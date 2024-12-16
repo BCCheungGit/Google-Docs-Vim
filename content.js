@@ -233,11 +233,21 @@ function enterNormalMode() {
     updateStatusIndicator();
 }
 
+
+
+/*
+? simulateCopy() function to simulate copying text from the Google Docs editor iframe. This function selects the text in the iframe and copies it to the clipboard.
+*/ 
 function simulateCopy() {
     document.querySelector(".docs-texteventtarget-iframe").contentDocument.execCommand("copy");
     const selectedText = document.querySelector(".docs-texteventtarget-iframe").contentDocument.body.innerText
+    console.log(selectedText)
 }
 
+
+/* 
+? simulatePaste() function to simulate pasting text into the Google Docs editor iframe. This function reads the text from the clipboard and simulates keypress events to type the text into the editor.
+*/
 function simulatePaste() {
     console.log("Pasting...");
     const iframe = document.querySelector('iframe.docs-texteventtarget-iframe');
