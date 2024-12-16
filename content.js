@@ -1,6 +1,8 @@
 let listenerAdded = false;
 let mode = "normal"; // Mode variable to track current mode
 
+
+// Keymap for direction keys and other keys
 const keyMap = {
     "ArrowLeft": 37,
     "ArrowDown": 40,
@@ -14,7 +16,32 @@ const keyMap = {
 
 let iframeDocument = null;  // To store iframe document
 
+
+
+// Keydown handler function that adapts based on the mode
+function handleKeydown(e) {
+    switch (mode) {
+        case "normal":
+            handleNormalMode(e);
+            break;
+        case "insert":
+            handleInsertMode(e);
+            break;
+        case "visual":
+            handleVisualMode(e);
+            break;
+    }
+}
+
+
+
 // Function to add keydown listener to the Google Docs iframe
+/* 
+
+! The Google Docs editor is an iframe with class `docs-texteventtarget-iframe`.
+! The iframe is dynamically loaded, so we need to observe the DOM for changes and add the listener when the iframe is loaded.
+
+*/
 function addKeyBindingToIframe() {
     const iframe = document.querySelector('iframe.docs-texteventtarget-iframe');
     if (!iframe) {
@@ -35,22 +62,9 @@ function addKeyBindingToIframe() {
     listenerAdded = true;  // Mark that the listener has been added
 }
 
-// Keydown handler function that adapts based on the mode
-function handleKeydown(e) {
-    switch (mode) {
-        case "normal":
-            handleNormalMode(e);
-            break;
-        case "insert":
-            handleInsertMode(e);
-            break;
-        case "visual":
-            handleVisualMode(e);
-            break;
-    }
-}
 
-// Normal mode keybindings (e.g., arrow keys)
+
+// Normal mode keybindings
 function handleNormalMode(e) {
     switch (e.key) {
         case "h":
@@ -120,7 +134,7 @@ function handleNormalMode(e) {
     }
 }
 
-
+// Visual mode keybindings
 function handleVisualMode(e) {
     switch (e.key) {
         case "h":
@@ -181,9 +195,10 @@ function enterInsertMode() {
     updateStatusIndicator();
 }
 
+// Enter visual mode (switch mode state)
 function enterVisualMode() {
     mode = "visual";
-    addKeyBindingToIframe();
+    addKeyBindingToIframe(); // Reinitialize event listeners for visual mode
     updateStatusIndicator();
 }
 
@@ -196,6 +211,11 @@ function enterNormalMode() {
 
 
 // Simulate key events for direction keys
+/*
+
+? simulateKey() function takes the key to simulate as an argument, along with optional ctrl and shift modifiers.
+
+*/ 
 function simulateKey(key, ctrl = false, shift = false) {
     const iframe = document.querySelector('iframe.docs-texteventtarget-iframe');
     if (!iframe) {
@@ -222,7 +242,7 @@ function simulateKey(key, ctrl = false, shift = false) {
     activeElement.dispatchEvent(event);
 }
 
-
+// Create a status indicator to show the current mode
 function createStatusIndicator() {
     // Minimal inline styling to reduce CSP conflicts
     const style = 'position:fixed;bottom:10px;right:10px;background:rgba(0,0,0,0.7);color:white;padding:5px;border-radius:3px;z-index:9999;';
@@ -235,7 +255,7 @@ function createStatusIndicator() {
     updateStatusIndicator();
 }
 
-
+// Update the status indicator with the current mode
 function updateStatusIndicator() {
     const statusElement = document.querySelector('#status-indicator');
     if (!statusElement) {
