@@ -9,3 +9,4 @@ features:
     - [x] x, u 
 - [x] Insert mode 
 - [x] Swapping between normal and insert mode with `i`, `a` and `esc` keys
+- [x] Visual mode

@@ -41,6 +41,9 @@ function handleKeydown(e) {
         case "insert":
             handleInsertMode(e);
             break;
+        case "visual":
+            handleVisualMode(e);
+            break;
     }
 }
 
@@ -92,8 +95,50 @@ function handleNormalMode(e) {
         case "d":
             e.preventDefault();
             break;
+        case "v":
+            e.preventDefault();
+            enterVisualMode();
+            break;
         default:
             e.preventDefault();
+            break;
+    }
+}
+
+
+function handleVisualMode(e) {
+    switch (e.key) {
+        case "h":
+            e.preventDefault();
+            simulateKey('ArrowLeft', false, true);
+            break;
+        case "j":
+            e.preventDefault();
+            simulateKey('ArrowDown', false, true);
+            break;
+        case "k":
+            e.preventDefault();
+            simulateKey('ArrowUp', false, true);
+            break;
+        case "l":
+            e.preventDefault();
+            simulateKey('ArrowRight', false, true);
+            break;
+        case "w":
+            e.preventDefault();
+            simulateKey('ArrowRight', true, true);
+            break;
+        case "b":
+            e.preventDefault();
+            simulateKey('ArrowLeft', true, true);
+            break;
+        case "x":
+            e.preventDefault();
+            simulateKey('Delete');
+            break;
+        case "Escape":
+            e.preventDefault();
+            enterNormalMode();
             break;
     }
 }
@@ -110,6 +155,12 @@ function handleInsertMode(e) {
 function enterInsertMode() {
     mode = "insert";
     addKeyBindingToIframe();  // Reinitialize event listeners for insert mode
+    updateStatusIndicator();
+}
+
+function enterVisualMode() {
+    mode = "visual";
+    addKeyBindingToIframe();
     updateStatusIndicator();
 }
 
