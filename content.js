@@ -70,15 +70,20 @@ function addKeyBindingToIframe() {
 function handleNormalMode(e) {
     keySequence.push(e.key);
 
+
+
     if (keySequence.length > 2) {
         keySequence.shift();
     }
 
     if (keySequence.join('') === 'dd') {
         e.preventDefault();
-        deleteLine(); 
+        deleteLine();
+        prevCommand = 'dd';
         return;
     }
+
+
 
     switch (e.key) {
         case "h":
@@ -117,11 +122,13 @@ function handleNormalMode(e) {
         case "x":
             e.preventDefault();
             simulateKey('Delete');
+            prevCommand = 'x';
             break;
         case "u":
             e.preventDefault();
             console.log('Undoing...');
             simulateKey('z', true)
+            prevCommand = 'u';
             break;
         case "d":
             e.preventDefault();
@@ -145,15 +152,36 @@ function handleNormalMode(e) {
         case "P":
             e.preventDefault();
             simulatePaste();
+            prevCommand = 'P';
             break;
         case "y":
             e.preventDefault();
             simulateCopy();
             enterNormalMode();
+            prevCommand = 'y';
+            break;
+        case ".":
+            e.preventDefault();
+            console.log('Repeating...');
+            if (prevCommand === 'dd') {
+                deleteLine();
+            } else if (prevCommand === 'P') {
+                simulatePaste();
+            } else if (prevCommand === 'y') {
+                simulateCopy();
+            } else if (prevCommand === 'u') {
+                console.log('Undoing...');
+                simulateKey('z', true)
+            } else {
+                simulateKey(prevCommand[0]);
+            }
+
+
             break;
         default:
             e.preventDefault();
             break;
+        
     }
 }
 
