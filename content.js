@@ -2,6 +2,9 @@ let listenerAdded = false;
 let mode = "normal"; // Mode variable to track current mode
 let keySequence = []; // key sequence for dd, yy, etc.
 
+let prevCommand = ""; // To store previouse command for repeat
+
+
 // Keymap for direction keys and other keys
 const keyMap = {
     "ArrowLeft": 37,
@@ -73,7 +76,7 @@ function handleNormalMode(e) {
 
     if (keySequence.join('') === 'dd') {
         e.preventDefault();
-        simulateKey('')
+        deleteLine(); 
         return;
     }
 
@@ -142,6 +145,11 @@ function handleNormalMode(e) {
         case "P":
             e.preventDefault();
             simulatePaste();
+            break;
+        case "y":
+            e.preventDefault();
+            simulateCopy();
+            enterNormalMode();
             break;
         default:
             e.preventDefault();
@@ -235,9 +243,17 @@ function enterNormalMode() {
 
 
 
+
+function deleteLine() {
+    console.log('Deleting line...');
+    simulateKey('Home');
+    simulateKey('End', false, true);
+    simulateKey('Delete');
+}
+
 /*
 ? simulateCopy() function to simulate copying text from the Google Docs editor iframe. This function selects the text in the iframe and copies it to the clipboard.
-*/ 
+*/
 function simulateCopy() {
     document.querySelector(".docs-texteventtarget-iframe").contentDocument.execCommand("copy");
     const selectedText = document.querySelector(".docs-texteventtarget-iframe").contentDocument.body.innerText
