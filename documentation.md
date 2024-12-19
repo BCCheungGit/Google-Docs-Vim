@@ -39,6 +39,24 @@ git clone https://github.com/BCCheungGit/Google-Docs-Vim.git
 ## Implementation
 The extension is implemented in pure JavaScript that works to manipulate the DOM, specifically the iframe in which the Google Docs editor is located. The extension listens for key presses and manipulates the cursor position and text content accordingly.
 
+### How is Google-Docs-Vim different from actual Vim?
+Because of the way Google Docs works and how it is now canvas based [see here](https://workspaceupdates.googleblog.com/2021/05/Google-Docs-Canvas-Based-Rendering-Update.html), many features are difficult to implement correctly since there are now limitations to what I can do with only JavaScript. To work around this, I reverse-engineered many other chrome extensions who seem to work fine with Google Docs (such as Grammarly), but ultimately the fact of the matter is that many vim keybindings are too difficult to implement currently (I will attempt to do more later).
+
+Some differences that you may notice:
+- pressing `e`, `b` and `w` may not work as intended with trailing whitespaces.
+- pressing `x` doesn't work ***exactly*** the same
+- Cursor style remains the same throughout the different modes
+- In visual mode, pressing any key other than ones that I have keybound will revert back to normal mode.
+- pressing `dd` will not properly delete empty lines.
+
+
+### So why not use the suggested Google Workspace Add-ons framework?
+- Good Question.
+- I wanted to learn how to make a chrome extension because I've always wondered how they worked (and I was procrastinating studying for my Operating Systems exam...)
+    - Therefore I stubbornly refuse to use this feature. for now. I probably will migrate this extension there in the future if I see there is a need for it, but for right now this is just a pet project of mine.
+    - If you are a developer feel free to write your own version in Google Workspace.
+
+
 ### Potentially Confusing Code Snippets
 1. Why do we need to add the keybinding to the iframe?
 ```javascript

@@ -85,6 +85,18 @@ function handleNormalMode(e) {
 
 
 
+    if (e.ctrlKey) {
+        switch (e.key) {
+            case "r":
+                e.preventDefault();
+                simulateKey('y', true);
+                break;
+            default:
+                e.preventDefault();
+                break;
+        }
+    }
+
     switch (e.key) {
         case "h":
             e.preventDefault();
@@ -247,6 +259,7 @@ function handleVisualMode(e) {
             break;
         default:
             e.preventDefault();
+            enterNormalMode();
             break;
     }
 }
