@@ -58,6 +58,15 @@ Some differences that you may notice:
 
 
 ### Potentially Confusing Code Snippets
+
+1. What does this do?
+```javascript
+iframeDocument.addEventListener("keydown", handleKeydown, true); // Use capture phase
+```
+This adds the event listener to the iframe document, which is where the Google Docs editor is located. The `handleKeydown` function is called whenever a keydown event is detected in the iframe. The `true` parameter specifies that the event listener should be added in the capture phase, which means that the event will be captured by the iframe document ***before*** it reaches the target element. If we do not do this, even if we call `e.preventDefault()` in the event handler, the event will still be passed to the Google Docs editor, which will then handle the event itself. This is not what we want, so we need to add the event listener in the capture phase to prevent the event from reaching the editor. 
+
+
+
 1. Why do we need to add the keybinding to the iframe?
 ```javascript
 function addKeyBindingToIframe() {
