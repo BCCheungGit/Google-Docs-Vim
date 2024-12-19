@@ -154,6 +154,10 @@ function handleNormalMode(e) {
             simulatePaste();
             prevCommand = 'P';
             break;
+        case "e":
+            e.preventDefault();
+            simulateKey('ArrowRight', true);
+            break; 
         case "y":
             e.preventDefault();
             simulateCopy();
@@ -212,6 +216,10 @@ function handleVisualMode(e) {
             e.preventDefault();
             simulateKey('ArrowLeft', true, true);
             break;
+        case "e":
+            e.preventDefault();
+            simulateKey('ArrowRight', true, true);
+            break;
         case "x":
             e.preventDefault();
             simulateKey('Delete');
@@ -236,6 +244,9 @@ function handleVisualMode(e) {
         case "Escape":
             e.preventDefault();
             enterNormalMode();
+            break;
+        default:
+            e.preventDefault();
             break;
     }
 }
