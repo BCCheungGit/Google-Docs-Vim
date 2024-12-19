@@ -18,7 +18,7 @@ features:
 - [x] search with `/`
 - [x] move to end of line with $ and beginning with 0
 - [x] yank, paste (not sure if this will work in google docs) (improve in the future)
+- [x] dd, other multi-character commands
 
 
 - [ ] repeated commands with numbers
-- [ ] dd, yy, other multi-character commands
